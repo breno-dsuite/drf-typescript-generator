@@ -20,11 +20,11 @@ class Command(AppCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--format', type=str, choices=['type', 'interface'], default='type',
+            '--format', type=str, choices=['type', 'interface'], default='interface',
             help='Specifies whether the result will be types or interfaces'
         )
         parser.add_argument(
-            '--semicolons', action='store_true', default=False,
+            '--semicolons', action='store_true', default=True,
             help='Semicolons will be added if this argument is present'
         )
         parser.add_argument(
