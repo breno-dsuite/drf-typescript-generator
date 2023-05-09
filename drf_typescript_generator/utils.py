@@ -166,7 +166,7 @@ def get_serializer_fields(serializer, options={}):
 def get_app_api_views(app_name):
     """ Returns all api views classes found in {app_name}.urls module """
     try:
-        urls_module = importlib.import_module('.urls', package=app_name)
+        urls_module = importlib.import_module('.api_urls', package=app_name)
         return inspect.getmembers(urls_module, _is_api_view)
     except ImportError:
         return []
@@ -180,7 +180,7 @@ def get_project_api_views():
 def get_module_serializers(module):
     """ Returns all serializer classes found in given module """
     try:
-        urls_module = importlib.import_module(f'api_{module}')
+        urls_module = importlib.import_module(module)
         return inspect.getmembers(urls_module, _is_serializer_class)
     except ImportError:
         return []
