@@ -1,11 +1,6 @@
 from django.apps import AppConfig
 from django.core.management.base import AppCommand
 
-from pathlib import Path
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
 from drf_typescript_generator.utils import (
     export_serializer,
     get_module_serializers,
@@ -69,7 +64,7 @@ class Command(AppCommand):
             # TS equivalent is generated even if they are not used in views module
             nested_serializers = get_nested_serializers(serializer)
             for nested_serializer_name, nested_serializer in nested_serializers.items():
-                self.process_serializer(nested_serializer_name, nested_serializer, options)
+                self.process_serializer(nested_serializer_name, nested_serializer, options, f_name)
 
             fields = get_serializer_fields(serializer, options)
             ts_serializer = export_serializer(serializer_name, fields, options)
