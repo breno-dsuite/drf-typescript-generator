@@ -180,7 +180,7 @@ def get_project_api_views():
 def get_module_serializers(module):
     """ Returns all serializer classes found in given module """
     try:
-        urls_module = importlib.import_module(module)
+        urls_module = importlib.import_module(f'api_{module}')
         return inspect.getmembers(urls_module, _is_serializer_class)
     except ImportError:
         return []
