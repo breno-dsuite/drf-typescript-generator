@@ -55,7 +55,7 @@ class Command(AppCommand):
         for module in views_modules:
             serializers = serializers.union(get_module_serializers(module))
             
-        f_name = BASE_DIR / f'/frontend/src/types/api_{app_config.name}.ts'
+        f_name = f'frontend/src/types/api_{app_config.name}.ts'
             
         with open(f_name, 'w') as f:
             f.write('')
