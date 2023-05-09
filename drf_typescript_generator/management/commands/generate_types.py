@@ -49,11 +49,16 @@ class Command(AppCommand):
         # extract all serializers found in views modules
         for module in views_modules:
             serializers = serializers.union(get_module_serializers(module))
+            
+        f_name = f'/frontend/src/types/{app_config.name}.ts'
+            
+        with open(f_name, 'w') as f:
+            f.write('')
 
         for serializer_name, serializer in sorted(serializers):
-            self.process_serializer(serializer_name, serializer, options)
+            self.process_serializer(serializer_name, serializer, options, f_name)
 
-    def process_serializer(self, serializer_name, serializer, options):
+    def process_serializer(self, serializer_name, serializer, options, f_name):
         if serializer_name not in self.already_parsed:
             # recursively process nested serializers first to ensure that
             # TS equivalent is generated even if they are not used in views module
@@ -65,3 +70,5 @@ class Command(AppCommand):
             ts_serializer = export_serializer(serializer_name, fields, options)
             self.already_parsed.add(serializer_name)
             self.stdout.write(ts_serializer)
+            with open(f_name, 'a') as f:
+                f.write(ts_serializer)
